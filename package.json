@@ -1,0 +1,25 @@
+{
+  "name": "smart-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrahmaOS/smart-contract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrahmaOS/smart-contract/issues"
+  },
+  "homepage": "https://github.com/BrahmaOS/smart-contract#readme",
+  "dependencies": {
+    "truffle-hdwallet-provider": "0.0.3"
+  }
+}
