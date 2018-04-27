@@ -1,6 +1,8 @@
 pragma solidity ^0.4.20;
 
 
+// Reliable tokens maintained by BrahmaOS for wallet, etc.
+// Token can only be added, removed by contract owner.
 contract ReliableTokens {
 
     struct Token {
@@ -16,6 +18,11 @@ contract ReliableTokens {
     
     // Some methods can only call by contract owner.
     address private owner;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
 
     // Token information with token code or address.
     mapping(string => Token) private codeTokens;
@@ -37,26 +44,18 @@ contract ReliableTokens {
     // update token information if exists.
     // 
     // Return: true if add success, else false.
-    function addToken(address addr, string code, string name) public returns(bool) {
-        if (msg.sender == owner) {
-            Token memory t = Token(addr, code, name);
-            codeTokens[t.code] = t;
-            addrTokens[t.addr] = t;
-            return true;
-        }
-        return false;
+    function addToken(address addr, string code, string name) public onlyOwner {
+        Token memory t = Token(addr, code, name);
+        codeTokens[t.code] = t;
+        addrTokens[t.addr] = t;
     }
 
     // Remove token only by token address, and only by contract owner.
     // 
     // Return: true if message.sender is owner, else false.
-    function removeToken(address addr) public returns(bool) {
-        if (msg.sender == owner) {
-            delete codeTokens[addrTokens[addr].code];
-            delete addrTokens[addr];
-            return true;
-        }
-        return false;
+    function removeToken(address addr) public onlyOwner {
+        delete codeTokens[addrTokens[addr].code];
+        delete addrTokens[addr];
     }
 
     // Get token information by code, eg: BRM
