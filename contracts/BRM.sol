@@ -13,8 +13,8 @@ contract BRM is StandardToken {
 		totalSupply = total;
 		balances[msg.sender] = total;
 	}
+	
 	function () public payable {
 		revert();
 	}
 }
-
